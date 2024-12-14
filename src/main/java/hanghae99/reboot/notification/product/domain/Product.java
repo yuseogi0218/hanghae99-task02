@@ -3,12 +3,12 @@ package hanghae99.reboot.notification.product.domain;
 import hanghae99.reboot.notification.product.domain.status.StockStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Product")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Product {
 
@@ -23,7 +23,10 @@ public class Product {
     @Enumerated(value = EnumType.STRING)
     private StockStatus stockStatus = StockStatus.OUT_OF_STOCK;
 
-    public void reStock() {
+    @Builder
+    public Product() {}
+
+    public void refillStock() {
         // 이전에 재고가 없는 상태에서, 재고 채우기
         reStockRound ++;
         stockStatus = StockStatus.IN_STOCK;
