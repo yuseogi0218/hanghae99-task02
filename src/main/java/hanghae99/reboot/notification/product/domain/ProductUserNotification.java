@@ -32,7 +32,7 @@ public class ProductUserNotification {
 
     @Column(name = "isActivate", nullable = false)
     @Convert(converter = BooleanAttributeConverter.class)
-    private Boolean isActivate;
+    private Boolean isActivate = Boolean.TRUE;
 
     @CreatedDate
     @Column(name = "createdAt", nullable = false, updatable = false)
@@ -42,11 +42,4 @@ public class ProductUserNotification {
     @Column(name = "updatedAt", nullable = false)
     private LocalDateTime updatedAt;
 
-    public void activateNotification() {
-        isActivate = Boolean.TRUE;
-    }
-
-    public void disActivateNotification() {
-        isActivate = Boolean.FALSE;
-    }
 }

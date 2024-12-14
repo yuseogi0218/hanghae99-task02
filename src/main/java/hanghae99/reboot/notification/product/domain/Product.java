@@ -17,11 +17,11 @@ public class Product {
     private Long id;
 
     @Column(name = "reStockRound", nullable = false)
-    private Integer reStockRound;
+    private Integer reStockRound = 0;
 
     @Column(name = "stockStatus", nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private StockStatus stockStatus;
+    private StockStatus stockStatus = StockStatus.OUT_OF_STOCK;
 
     public void reStock() {
         // 이전에 재고가 없는 상태에서, 재고 채우기
