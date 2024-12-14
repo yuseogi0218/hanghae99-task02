@@ -1,0 +1,18 @@
+services:
+  spring-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - my-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/shop
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin_password
+      SPRING_DATASOURCE_DRIVER: com.mysql.cj.jdbc.Driver
+
+networks:
+  my-network:
+    external: true
