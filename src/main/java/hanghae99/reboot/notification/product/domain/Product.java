@@ -22,4 +22,15 @@ public class Product {
     @Column(name = "stockStatus", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private StockStatus stockStatus;
+
+    public void reStock() {
+        // 이전에 재고가 없는 상태에서, 재고 채우기
+        reStockRound ++;
+        stockStatus = StockStatus.IN_STOCK;
+    }
+
+    public void decreaseStock() {
+        // 모든 재고를 다 소진한다면
+        stockStatus = StockStatus.OUT_OF_STOCK;
+    }
 }
