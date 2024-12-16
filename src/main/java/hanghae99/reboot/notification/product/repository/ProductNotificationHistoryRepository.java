@@ -8,16 +8,16 @@ import java.util.Optional;
 
 public interface ProductNotificationHistoryRepository extends CrudRepository<ProductNotificationHistory, Long> {
 
-    @Query(value = "select * from product_notification_history pnh " +
+    @Query(value = "select * from productNotificationHistory pnh " +
             "where pnh.id = :id " +
-            "and pnh.re_stock_notification_status != 'COMPLETED' " +
+            "and pnh.reStockNotificationStatus != 'COMPLETED' " +
             "limit 1",
             nativeQuery = true)
     Optional<ProductNotificationHistory> findTopByIdAndReStockNotificationStatusIsNotCompleted(Long id);
 
-    @Query(value = "select * from product_notification_history pnh " +
-            "where pnh.product_id = :productId " +
-            "and pnh.re_stock_notification_status != 'COMPLETED' " +
+    @Query(value = "select * from productNotificationHistory pnh " +
+            "where pnh.productId = :productId " +
+            "and pnh.reStockNotificationStatus != 'COMPLETED' " +
             "limit 1",
             nativeQuery = true)
     Optional<ProductNotificationHistory> findTopByProductIdAndReStockNotificationStatusIsNotCompleted(Long productId);

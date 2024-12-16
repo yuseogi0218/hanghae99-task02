@@ -12,12 +12,12 @@ public interface ProductUserNotificationRepository extends JpaRepository<Product
 
     @Query(value = "select pun.userId " +
             "from ProductUserNotification pun " +
-            "where pun.productId = :productId " +
+            "where pun.product.id = :productId " +
             "and (:lastSentUserId is null or pun.userId > :lastSentUserId) " +
             "order by pun.updatedAt desc",
             countQuery = "select COUNT(pun) " +
                     "from ProductUserNotification pun " +
-                    "where pun.productId = :productId " +
+                    "where pun.product.id = :productId " +
                     "and (:lastSentUserId is null or pun.userId > :lastSentUserId)")
     Page<Long> findUserIdsByProductIdAfterLastSentUserId(
             @Param("productId") Long productId,

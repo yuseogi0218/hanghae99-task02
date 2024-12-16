@@ -39,7 +39,7 @@ CREATE TABLE `ProductNotificationHistory`
 (
     `id`                        BIGINT AUTO_INCREMENT PRIMARY KEY,
     `productId`                 BIGINT NOT NULL,
-    `lastSendUserId`            BIGINT NOT NULL,
+    `lastSentUserId`            BIGINT NOT NULL,
     `reStockRound`              INT NOT NULL,
     `reStockNotificationStatus` ENUM ('CANCELED_BY_ERROR', 'CANCELED_BY_SOLD_OUT', 'COMPLETED', 'IN_PROGRESS') NOT NULL,
 
