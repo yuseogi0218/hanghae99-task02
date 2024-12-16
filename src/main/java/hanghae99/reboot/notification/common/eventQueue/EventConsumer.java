@@ -76,7 +76,7 @@ public class EventConsumer {
                 } catch (CustomException e) {
                     // 재입고 알림을 보내던 중 재고가 모두 소진된다면, 알림 보내는 것을 중단한다.
                     if (e.getErrorCode().equals(ProductErrorCode.OUT_OF_STOCK.getCode())) {
-                        productNotificationHistory.canceledByOutOfStock();
+                        productNotificationHistory.canceledBySoldOut();
                         // 써드 파티 연동에서의 예외
                     } else {
                         productNotificationHistory.canceledByError();

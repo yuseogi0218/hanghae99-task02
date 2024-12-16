@@ -49,7 +49,7 @@ public class ProductNotificationHistory {
         return this.reStockNotificationStatus.equals(ReStockNotificationStatus.IN_PROGRESS);
     }
 
-    public void canceledByOutOfStock() {
+    public void canceledBySoldOut() {
         this.reStockNotificationStatus = ReStockNotificationStatus.CANCELED_BY_SOLD_OUT;
     }
 

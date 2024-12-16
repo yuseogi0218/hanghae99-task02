@@ -14,6 +14,29 @@ public class ProductNotificationHistoryBuilder {
         return productNotificationHistory;
     }
 
+    public static ProductNotificationHistory build_CANCELED_BY_SOLD_OUT() {
+        Product product = ProductBuilder.build();
+
+        ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()
+                .product(product)
+                .build();
+        productNotificationHistory.canceledBySoldOut();
+
+        return productNotificationHistory;
+    }
+
+    public static ProductNotificationHistory build_CANCELED_BY_ERROR() {
+        Product product = ProductBuilder.build();
+
+        ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()
+                .product(product)
+                .build();
+        productNotificationHistory.canceledByError();
+
+        return productNotificationHistory;
+    }
+
+
     public static void assertProductNotificationHistory(ProductNotificationHistory actualProductNotificationHistory, ProductNotificationHistory expectedProductNotificationHistory) {
         Assertions.assertThat(actualProductNotificationHistory.getLastSentUserId()).isEqualTo(expectedProductNotificationHistory.getLastSentUserId());
         Assertions.assertThat(actualProductNotificationHistory.getReStockRound()).isEqualTo(expectedProductNotificationHistory.getReStockRound());

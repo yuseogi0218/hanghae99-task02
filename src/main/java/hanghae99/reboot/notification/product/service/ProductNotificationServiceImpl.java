@@ -57,6 +57,7 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
     /**
      * 재입고 알림 전송 이벤트 발행
      */
+    @Transactional
     @Override
     public void publishReStockNotificationEvent(Long productId) {
         Optional<ProductNotificationHistory> productNotificationHistoryOptional =

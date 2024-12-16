@@ -22,7 +22,7 @@ public class ProductRepositoryUnitTest extends RepositoryUnitTest {
     public void findTopById_존재_O() {
         // given
         Long expectedProductId = 1L;
-        Product expectedProduct = ProductBuilder.build();
+        Product expectedProduct = ProductBuilder.build_2reStock();
 
         // when
         Optional<Product> optionalProduct = productRepository.findTopById(expectedProductId);
