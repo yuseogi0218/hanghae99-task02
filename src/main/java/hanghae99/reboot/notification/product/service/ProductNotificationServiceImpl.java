@@ -90,7 +90,9 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
         if (product.getStockStatus().equals(StockStatus.OUT_OF_STOCK)) {
             throw new CustomException(ProductErrorCode.OUT_OF_STOCK);
         }
-
+        
+        //TODO: 2024-12-16 알림 전송 후, Repository 에서 저장하는 것이 아닌, 반환하도록 한다. - 이후, 반환받은 곳에서 Bulk Insert 를 수행한다. 
+        
         ProductUserNotificationHistory productUserNotificationHistory = ProductUserNotificationHistory.builder()
                 .product(product)
                 .userId(dto.userId())

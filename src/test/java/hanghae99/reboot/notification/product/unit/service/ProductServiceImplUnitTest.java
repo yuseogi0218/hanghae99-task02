@@ -82,4 +82,22 @@ public class ProductServiceImplUnitTest extends ServiceUnitTest {
         Assertions.assertThat(product.getReStockRound()).isEqualTo(expectedReStockRound);
         Assertions.assertThat(product.getStockStatus()).isEqualTo(StockStatus.IN_STOCK);
     }
+
+    /**
+     * 상품 재고 재입고 실패
+     * 실패 사유 : 상품 DB Id에 해당하는 상품이 존재하지 않습니다.
+     */
+    @Test
+    public void reStockById_실패_NOT_FOUND_PRODUCT() {
+        // given
+        Long unknownProductId = 0L;
+
+        // stub
+        when(productRepository.findTopById(unknownProductId)).thenReturn(Optional.empty());
+
+        // when & then
+        Assertions.assertThatThrownBy(() -> productService.reStockById(unknownProductId))
+                .isInstanceOf(CustomException.class)
+                .hasMessage(ProductErrorCode.NOT_FOUND_PRODUCT.getMessage());
+    }
 }
