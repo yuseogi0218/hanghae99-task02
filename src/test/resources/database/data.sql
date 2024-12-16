@@ -1,0 +1,1 @@
+INSERT INTO Product(id, reStockRound, stockStatus) VALUES(1, 1, 'IN_STOCK');
