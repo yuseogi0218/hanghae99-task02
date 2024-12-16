@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public void refillProductStockById(Long productId) {
+    public void reStockById(Long productId) {
         Product product = getProductById(productId);
-        product.refillStock();
+        product.reStock();
     }
 }

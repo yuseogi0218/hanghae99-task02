@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/products/{productId}/notifications")
 @RestController
-public class NotificationAPI {
+public class ProductNotificationAPI {
 
     @PostMapping("/re-stock")
     public ResponseEntity<?> sendReStockNotification(

@@ -15,7 +15,7 @@ public class ProductUnitTest {
         Integer expectedReStockRound = product.getReStockRound() + 1;
 
         // when
-        product.refillStock();
+        product.reStock();
 
         // then
         Assertions.assertThat(product.getReStockRound()).isEqualTo(expectedReStockRound);

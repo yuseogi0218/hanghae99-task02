@@ -6,7 +6,7 @@ public class ProductBuilder {
 
     public static Product build() {
         Product product = Product.builder().build();
-        product.refillStock();
+        product.reStock();
 
         return product;
     }

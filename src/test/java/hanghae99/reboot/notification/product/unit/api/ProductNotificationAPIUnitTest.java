@@ -2,7 +2,7 @@ package hanghae99.reboot.notification.product.unit.api;
 
 import hanghae99.reboot.notification.common.APIUnitTest;
 import hanghae99.reboot.notification.common.exception.CommonErrorCode;
-import hanghae99.reboot.notification.product.api.NotificationAPI;
+import hanghae99.reboot.notification.product.api.ProductNotificationAPI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(NotificationAPI.class)
-public class NotificationAPIUnitTest extends APIUnitTest {
+@WebMvcTest(ProductNotificationAPI.class)
+public class ProductNotificationAPIUnitTest extends APIUnitTest {
 
     @Autowired
     private WebApplicationContext context;

@@ -6,5 +6,5 @@ public interface ProductService {
 
     Product getProductById(Long productId);
 
-    void refillProductStockById(Long productId);
+    void reStockById(Long productId);
 }

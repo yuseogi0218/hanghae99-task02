@@ -7,7 +7,6 @@ import hanghae99.reboot.notification.product.domain.ProductBuilder;
 import hanghae99.reboot.notification.product.domain.status.StockStatus;
 import hanghae99.reboot.notification.product.exception.ProductErrorCode;
 import hanghae99.reboot.notification.product.repository.ProductRepository;
-import hanghae99.reboot.notification.product.service.ProductService;
 import hanghae99.reboot.notification.product.service.ProductServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -67,7 +66,7 @@ public class ProductServiceImplUnitTest extends ServiceUnitTest {
      * 상품 재고 재입고
      */
     @Test
-    public void refillProductStockById() {
+    public void reStockById() {
         // given
         Long productId = 1L;
         Product product = ProductBuilder.build();
@@ -77,7 +76,7 @@ public class ProductServiceImplUnitTest extends ServiceUnitTest {
         when(productRepository.findTopById(productId)).thenReturn(Optional.of(product));
 
         // when
-        productService.refillProductStockById(productId);
+        productService.reStockById(productId);
 
         // then
         Assertions.assertThat(product.getReStockRound()).isEqualTo(expectedReStockRound);
