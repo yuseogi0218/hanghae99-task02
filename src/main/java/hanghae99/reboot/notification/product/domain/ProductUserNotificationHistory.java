@@ -2,6 +2,7 @@ package hanghae99.reboot.notification.product.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -33,4 +34,11 @@ public class ProductUserNotificationHistory {
     @CreatedDate
     @Column(name = "sentAt", nullable = false, updatable = false)
     private LocalDateTime sentAt;
+
+    @Builder
+    public ProductUserNotificationHistory(Product product, Long userId, Integer reStockRound) {
+        this.product = product;
+        this.userId = userId;
+        this.reStockRound = reStockRound;
+    }
 }
