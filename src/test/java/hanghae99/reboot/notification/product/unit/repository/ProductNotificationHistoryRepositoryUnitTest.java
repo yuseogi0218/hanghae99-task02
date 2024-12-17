@@ -18,15 +18,15 @@ public class ProductNotificationHistoryRepositoryUnitTest extends RepositoryUnit
     ProductNotificationHistoryRepository productNotificationHistoryRepository;
 
     @Test
-    public void findTopByIdAndReStockNotificationStatusIsNotCompleted_존재_O() {
+    public void findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError_존재_O() {
         // given
-        Long expectedProductNotificationHistoryId = 3L;
-        Long expectedProductId = 2L;
-        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
+        Long expectedProductNotificationHistoryId = 4L;
+        Long expectedProductId = 3L;
+        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_ERROR();
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =
-                productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsNotCompleted(expectedProductNotificationHistoryId);
+                productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(expectedProductNotificationHistoryId);
 
         // then
         Assertions.assertThat(optionalProductNotificationHistory.isPresent()).isTrue();
@@ -40,28 +40,28 @@ public class ProductNotificationHistoryRepositoryUnitTest extends RepositoryUnit
     }
 
     @Test
-    public void findTopByIdAndReStockNotificationStatusIsNotCompleted_존재_x() {
+    public void findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError_존재_x() {
         // given
         Long productNotificationHistoryId = 1L;
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =
-                productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsNotCompleted(productNotificationHistoryId);
+                productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productNotificationHistoryId);
 
         // then
         Assertions.assertThat(optionalProductNotificationHistory.isEmpty()).isTrue();
     }
 
     @Test
-    public void findTopByProductIdAndReStockNotificationStatusIsNotCompleted_존재_O() {
+    public void findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError_존재_O() {
         // given
-        Long expectedProductNotificationHistoryId = 3L;
-        Long expectedProductId = 2L;
-        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
+        Long expectedProductNotificationHistoryId = 4L;
+        Long expectedProductId = 3L;
+        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_ERROR();
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =
-                productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsNotCompleted(expectedProductId);
+                productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError(expectedProductId);
 
         // then
         Assertions.assertThat(optionalProductNotificationHistory.isPresent()).isTrue();
@@ -75,13 +75,13 @@ public class ProductNotificationHistoryRepositoryUnitTest extends RepositoryUnit
     }
 
     @Test
-    public void findTopByProductIdAndReStockNotificationStatusIsNotCompleted_존재_X() {
+    public void findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError_존재_X() {
         // given
         Long productId = 1L;
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =
-                productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsNotCompleted(productId);
+                productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productId);
 
         // then
         Assertions.assertThat(optionalProductNotificationHistory.isEmpty()).isTrue();

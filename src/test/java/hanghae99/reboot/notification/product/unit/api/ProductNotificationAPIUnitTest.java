@@ -4,8 +4,10 @@ import hanghae99.reboot.notification.common.APIUnitTest;
 import hanghae99.reboot.notification.common.exception.CommonErrorCode;
 import hanghae99.reboot.notification.product.api.ProductNotificationAPI;
 import hanghae99.reboot.notification.product.service.ProductNotificationService;
+import hanghae99.reboot.notification.product.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -22,6 +24,9 @@ public class ProductNotificationAPIUnitTest extends APIUnitTest {
 
     @Autowired
     private WebApplicationContext context;
+
+    @MockitoBean
+    private ProductService productService;
 
     @MockitoBean
     private ProductNotificationService productNotificationService;

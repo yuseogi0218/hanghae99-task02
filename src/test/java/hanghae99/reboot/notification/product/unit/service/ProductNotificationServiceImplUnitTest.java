@@ -51,16 +51,16 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
     @Test
     public void getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted_성공_존재_O() {
         // given
-        Long productNotificationHistoryId = 3L;
-        ProductNotificationHistory expecteProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
+        Long productNotificationHistoryId = 4L;
+        ProductNotificationHistory expecteProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_ERROR();
 
         // stub
-        when(productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsNotCompleted(productNotificationHistoryId))
+        when(productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productNotificationHistoryId))
                 .thenReturn(Optional.of(expecteProductNotificationHistory));
 
         // when
         Optional<ProductNotificationHistory> productNotificationHistoryOptional
-                = productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(productNotificationHistoryId);
+                = productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productNotificationHistoryId);
 
         // then
         Assertions.assertThat(productNotificationHistoryOptional.isPresent()).isTrue();
@@ -80,12 +80,12 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
         Long completedProductNotificationHistoryId = 1L;
 
         // stub
-        when(productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsNotCompleted(completedProductNotificationHistoryId))
+        when(productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(completedProductNotificationHistoryId))
                 .thenReturn(Optional.empty());
 
         // when
         Optional<ProductNotificationHistory> productNotificationHistoryOptional
-                = productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(completedProductNotificationHistoryId);
+                = productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(completedProductNotificationHistoryId);
 
         // then
         Assertions.assertThat(productNotificationHistoryOptional.isEmpty()).isTrue();
@@ -116,12 +116,12 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
     @Test
     public void publishReStockNotificationEvent_성공_존재_O() {
         // given
-        Long productId = 2L;
-        ProductNotificationHistory productNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
-        Assertions.assertThat(productNotificationHistory.getReStockNotificationStatus()).isEqualTo(ReStockNotificationStatus.CANCELED_BY_SOLD_OUT);
+        Long productId = 3L;
+        ProductNotificationHistory productNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_ERROR();
+        Assertions.assertThat(productNotificationHistory.getReStockNotificationStatus()).isEqualTo(ReStockNotificationStatus.CANCELED_BY_ERROR);
 
         // stub
-        when(productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsNotCompleted(productId))
+        when(productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productId))
                 .thenReturn(Optional.of(productNotificationHistory));
 
         // when
@@ -141,7 +141,7 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
         Long completedProductId = 1L;
 
         // stub
-        when(productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsNotCompleted(completedProductId))
+        when(productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError(completedProductId))
                 .thenReturn(Optional.empty());
 
         // when

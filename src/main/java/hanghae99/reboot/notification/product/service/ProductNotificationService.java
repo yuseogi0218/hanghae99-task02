@@ -12,7 +12,7 @@ public interface ProductNotificationService {
 
     void saveProductNotificationHistory(ProductNotificationHistory productNotificationHistory);
 
-    Optional<ProductNotificationHistory> getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(Long productNotificationHistoryId);
+    Optional<ProductNotificationHistory> getProductNotificationHistoryByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(Long productNotificationHistoryId);
 
     void createProductNotificationHistory(Long productId);
 

@@ -42,8 +42,8 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
      * 재입고 알림 전송 기록 조회
      */
     @Override
-    public Optional<ProductNotificationHistory> getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(Long productNotificationHistoryId) {
-        return productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsNotCompleted(productNotificationHistoryId);
+    public Optional<ProductNotificationHistory> getProductNotificationHistoryByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(Long productNotificationHistoryId) {
+        return productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productNotificationHistoryId);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
     @Override
     public void publishReStockNotificationEvent(Long productId) {
         Optional<ProductNotificationHistory> productNotificationHistoryOptional =
-                productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsNotCompleted(productId);
+                productNotificationHistoryRepository.findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productId);
 
         productNotificationHistoryOptional.ifPresent(
                 productNotificationHistory -> {

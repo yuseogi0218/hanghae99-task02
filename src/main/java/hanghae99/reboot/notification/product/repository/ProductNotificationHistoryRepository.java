@@ -10,15 +10,15 @@ public interface ProductNotificationHistoryRepository extends CrudRepository<Pro
 
     @Query(value = "select * from productNotificationHistory pnh " +
             "where pnh.id = :id " +
-            "and pnh.reStockNotificationStatus != 'COMPLETED' " +
+            "and (pnh.reStockNotificationStatus = 'IN_PROGRESS' or pnh.reStockNotificationStatus = 'CANCELED_BY_ERROR')" +
             "limit 1",
             nativeQuery = true)
-    Optional<ProductNotificationHistory> findTopByIdAndReStockNotificationStatusIsNotCompleted(Long id);
+    Optional<ProductNotificationHistory> findTopByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(Long id);
 
     @Query(value = "select * from productNotificationHistory pnh " +
             "where pnh.productId = :productId " +
-            "and pnh.reStockNotificationStatus != 'COMPLETED' " +
+            "and (pnh.reStockNotificationStatus = 'IN_PROGRESS' or pnh.reStockNotificationStatus = 'CANCELED_BY_ERROR')" +
             "limit 1",
             nativeQuery = true)
-    Optional<ProductNotificationHistory> findTopByProductIdAndReStockNotificationStatusIsNotCompleted(Long productId);
+    Optional<ProductNotificationHistory> findTopByProductIdAndReStockNotificationStatusIsInProgressOrCanceledByError(Long productId);
 }

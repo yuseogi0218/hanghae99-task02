@@ -61,8 +61,8 @@ public class EventConsumerUnitTest {
         ProductNotificationHistory productNotificationHistory6 = ProductNotificationHistoryBuilder.build_6();
 
         // stub
-        when(productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(product1Id)).thenReturn(Optional.of(productNotificationHistory5));
-        when(productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(product2Id)).thenReturn(Optional.of(productNotificationHistory6));
+        when(productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(product1Id)).thenReturn(Optional.of(productNotificationHistory5));
+        when(productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(product2Id)).thenReturn(Optional.of(productNotificationHistory6));
 
         when(productNotificationService.getUserIdOfProductUserNotificationByProductId(productNotificationHistory5.getProduct().getId(), null, 500)).thenReturn(product1UserNotificationUserIdsPage);
         when(productNotificationService.getUserIdOfProductUserNotificationByProductId(productNotificationHistory6.getProduct().getId(), null, 200)).thenReturn(product2UserNotificationUserIdsPage);

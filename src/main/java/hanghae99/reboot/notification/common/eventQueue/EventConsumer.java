@@ -8,11 +8,9 @@ import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTO;
 import hanghae99.reboot.notification.product.exception.ProductErrorCode;
 import hanghae99.reboot.notification.product.service.ProductNotificationService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.util.CustomObjectInputStream;
 import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +38,9 @@ public class EventConsumer {
             // 수행할 이벤트(재입고 알림 전송 기록 Id) 확인
             Long productNotificationHistoryId = eventQueue.peekEvent();
 
-            // 재입고 알림 전송 기록 DB Id를 사용하여 완료되지 않은 재입고 알림 전송 기록 조회
+            // 재입고 알림 전송 기록 DB Id를 사용하여 (진행 중 이거나, 예외에 의해 중지된) 재입고 알림 전송 기록 조회
             Optional<ProductNotificationHistory> productNotificationHistoryOptional
-                    = productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(productNotificationHistoryId);
+                    = productNotificationService.getProductNotificationHistoryByIdAndReStockNotificationStatusIsInProgressOrCanceledByError(productNotificationHistoryId);
 
             // 존재하지 않다면, 해당 이벤트를 이벤트 큐에서 제거 후, 다음 이벤트 진행
             if (productNotificationHistoryOptional.isEmpty()) {
