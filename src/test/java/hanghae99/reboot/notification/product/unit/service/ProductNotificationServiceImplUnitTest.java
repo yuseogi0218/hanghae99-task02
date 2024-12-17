@@ -3,10 +3,7 @@ package hanghae99.reboot.notification.product.unit.service;
 import hanghae99.reboot.notification.common.ServiceUnitTest;
 import hanghae99.reboot.notification.common.eventQueue.EventProducer;
 import hanghae99.reboot.notification.common.exception.CustomException;
-import hanghae99.reboot.notification.product.domain.Product;
-import hanghae99.reboot.notification.product.domain.ProductBuilder;
-import hanghae99.reboot.notification.product.domain.ProductNotificationHistory;
-import hanghae99.reboot.notification.product.domain.ProductNotificationHistoryBuilder;
+import hanghae99.reboot.notification.product.domain.*;
 import hanghae99.reboot.notification.product.domain.status.ReStockNotificationStatus;
 import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTO;
 import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTOBuilder;
@@ -24,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -193,10 +191,12 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
         when(productService.getProductById(dto.productId())).thenReturn(product);
 
         // when
-        productNotificationService.sendReStockNotification(dto);
+        ProductUserNotificationHistory productUserNotificationHistory = productNotificationService.sendReStockNotification(dto);
 
         // then
-        verify(productUserNotificationHistoryRepository, times(1)).save(any());
+        Assertions.assertThat(productUserNotificationHistory.getProduct()).isEqualTo(product);
+        Assertions.assertThat(productUserNotificationHistory.getUserId()).isEqualTo(dto.userId());
+        Assertions.assertThat(productUserNotificationHistory.getReStockRound()).isEqualTo(dto.reStockRound());
     }
 
     /**
@@ -216,6 +216,20 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
         Assertions.assertThatThrownBy(() -> productNotificationService.sendReStockNotification(dto))
                 .isInstanceOf(CustomException.class)
                 .hasMessage(ProductErrorCode.OUT_OF_STOCK.getMessage());
-        verify(productUserNotificationHistoryRepository, never()).save(any());
+    }
+
+    /**
+     * 사용자별 재입고 알림 전송 기록 저장 성공
+     */
+    @Test
+    public void saveAllProductUserNotificationHistories_성공() {
+        // given
+        List<ProductUserNotificationHistory> productUserNotificationHistories = new ArrayList<>();
+
+        // when
+        productNotificationService.saveAllProductUserNotificationHistories(productUserNotificationHistories);
+
+        // then
+        verify(productUserNotificationHistoryRepository, times(1)).saveAll(productUserNotificationHistories);
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -87,17 +88,23 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
      */
     @Transactional
     @Override
-    public void sendReStockNotification(SendReStockNotificationDTO dto) {
+    public ProductUserNotificationHistory sendReStockNotification(SendReStockNotificationDTO dto) {
         Product product = productService.getProductById(dto.productId());
 
         if (product.getStockStatus().equals(StockStatus.OUT_OF_STOCK)) {
             throw new CustomException(ProductErrorCode.OUT_OF_STOCK);
         }
-        
-        //TODO: 2024-12-16 알림 전송 후, Repository 에서 저장하는 것이 아닌, 반환하도록 한다. - 이후, 반환받은 곳에서 Bulk Insert 를 수행한다. 
 
         ProductUserNotificationHistory productUserNotificationHistory = dto.toEntity(product);
 
-        productUserNotificationHistoryRepository.save(productUserNotificationHistory);
+        return productUserNotificationHistory;
+    }
+
+    /**
+     * 사용자별 재입고 알림 전송 기록 저장
+     */
+    @Override
+    public void saveAllProductUserNotificationHistories(List<ProductUserNotificationHistory> productUserNotificationHistories) {
+        productUserNotificationHistoryRepository.saveAll(productUserNotificationHistories);
     }
 }

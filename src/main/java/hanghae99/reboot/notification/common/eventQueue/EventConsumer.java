@@ -3,6 +3,7 @@ package hanghae99.reboot.notification.common.eventQueue;
 import hanghae99.reboot.notification.common.exception.CustomException;
 import hanghae99.reboot.notification.product.domain.Product;
 import hanghae99.reboot.notification.product.domain.ProductNotificationHistory;
+import hanghae99.reboot.notification.product.domain.ProductUserNotificationHistory;
 import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTO;
 import hanghae99.reboot.notification.product.exception.ProductErrorCode;
 import hanghae99.reboot.notification.product.service.ProductNotificationService;
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,7 @@ public class EventConsumer {
     public void consumeEvent() {
         // 현재 이벤트에서 전송한 메시지 개수
         int sentMessageCount = 0;
+        List<ProductUserNotificationHistory> productUserNotificationHistories = new ArrayList<>();
 
         // 이벤트 큐가 비어있지 않거나, 현재 이벤트에서 전송한 메시지 개수가 500개 미만이면
         while (!eventQueue.isEmpty() && sentMessageCount < MESSAGE_LIMIT_IN_ONE_SECONDS) {
@@ -72,7 +75,9 @@ public class EventConsumer {
                             .build();
 
                     // 알림 전송
-                    productNotificationService.sendReStockNotification(sendReStockNotificationDTO);
+                    ProductUserNotificationHistory productUserNotificationHistory =
+                            productNotificationService.sendReStockNotification(sendReStockNotificationDTO);
+                    productUserNotificationHistories.add(productUserNotificationHistory);
                 } catch (CustomException e) {
                     // 재입고 알림을 보내던 중 재고가 모두 소진된다면, 알림 보내는 것을 중단한다.
                     if (e.getErrorCode().equals(ProductErrorCode.OUT_OF_STOCK.getCode())) {
@@ -98,5 +103,7 @@ public class EventConsumer {
                 eventQueue.removeEvent();
             }
         }
+        // 알림 전송 기록 저장
+        productNotificationService.saveAllProductUserNotificationHistories(productUserNotificationHistories);
     }
 }

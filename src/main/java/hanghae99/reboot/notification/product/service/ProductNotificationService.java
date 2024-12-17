@@ -1,9 +1,11 @@
 package hanghae99.reboot.notification.product.service;
 
 import hanghae99.reboot.notification.product.domain.ProductNotificationHistory;
+import hanghae99.reboot.notification.product.domain.ProductUserNotificationHistory;
 import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTO;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductNotificationService {
@@ -16,5 +18,7 @@ public interface ProductNotificationService {
 
     Page<Long> getUserIdOfProductUserNotificationByProductId(Long productId, Long lastSentUserId, Integer size);
 
-    void sendReStockNotification(SendReStockNotificationDTO dto);
+    ProductUserNotificationHistory sendReStockNotification(SendReStockNotificationDTO dto);
+
+    void saveAllProductUserNotificationHistories(List<ProductUserNotificationHistory> productUserNotificationHistories);
 }

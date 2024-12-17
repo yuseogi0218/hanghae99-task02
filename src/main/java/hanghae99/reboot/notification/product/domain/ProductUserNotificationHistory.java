@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "productUserNotificationHistory")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
 @Getter
 public class ProductUserNotificationHistory {
 
@@ -31,9 +30,8 @@ public class ProductUserNotificationHistory {
     @Column(name = "reStockRound", nullable = false, updatable = false)
     private Integer reStockRound;
 
-    @CreatedDate
     @Column(name = "sentAt", nullable = false, updatable = false)
-    private LocalDateTime sentAt;
+    private final LocalDateTime sentAt = LocalDateTime.now();
 
     @Builder
     public ProductUserNotificationHistory(Product product, Long userId, Integer reStockRound) {

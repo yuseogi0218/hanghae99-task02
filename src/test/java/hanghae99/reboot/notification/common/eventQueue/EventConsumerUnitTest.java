@@ -72,6 +72,7 @@ public class EventConsumerUnitTest {
 
         // then
         verify(productNotificationService, times(500)).sendReStockNotification(any());
+        verify(productNotificationService, times(1)).saveAllProductUserNotificationHistories(any());
         Assertions.assertThat(eventQueue.isEmpty()).isTrue();
     }
 }
