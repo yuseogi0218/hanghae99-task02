@@ -43,7 +43,7 @@ public class EventConsumer {
 
             // 존재하지 않다면, 해당 이벤트를 이벤트 큐에서 제거 후, 다음 이벤트 진행
             if (productNotificationHistoryOptional.isEmpty()) {
-                eventQueue.getEvent();
+                eventQueue.removeEvent();
                 continue;
             }
 
@@ -77,8 +77,8 @@ public class EventConsumer {
                     // 재입고 알림을 보내던 중 재고가 모두 소진된다면, 알림 보내는 것을 중단한다.
                     if (e.getErrorCode().equals(ProductErrorCode.OUT_OF_STOCK.getCode())) {
                         productNotificationHistory.canceledBySoldOut();
-                        // 써드 파티 연동에서의 예외
                     } else {
+                        // 써드 파티 연동에서의 예외
                         productNotificationHistory.canceledByError();
                     }
                     break;
@@ -92,10 +92,10 @@ public class EventConsumer {
             // 성공적으로 다 보냈고, 모든 사람에 대해서 알림을 전송한 경우
             } else if (productUserNotificationUserIdsPage.isLast() && productNotificationHistory.statusIsInProgress()) {
                 productNotificationHistory.complete();
-                eventQueue.getEvent();
+                eventQueue.removeEvent();
             // 메시지를 보내는 중간에 에러가 발생한 경우
             } else if (productNotificationHistory.statusIsCanceled()) {
-                eventQueue.getEvent();
+                eventQueue.removeEvent();
             }
         }
     }

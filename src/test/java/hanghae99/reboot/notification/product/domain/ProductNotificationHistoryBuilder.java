@@ -4,34 +4,58 @@ import org.assertj.core.api.Assertions;
 
 public class ProductNotificationHistoryBuilder {
     public static ProductNotificationHistory build2() {
-        Product product = ProductBuilder.build_2reStock();
+        Product product = ProductBuilder.build1();
 
         ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()
                 .product(product)
                 .build();
-        productNotificationHistory.updateLastSentUserId(500L);
+        productNotificationHistory.updateLastSentUserId(3500L);
 
         return productNotificationHistory;
     }
 
     public static ProductNotificationHistory build_CANCELED_BY_SOLD_OUT() {
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build2();
 
         ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()
                 .product(product)
                 .build();
+        productNotificationHistory.updateLastSentUserId(750L);
         productNotificationHistory.canceledBySoldOut();
 
         return productNotificationHistory;
     }
 
     public static ProductNotificationHistory build_CANCELED_BY_ERROR() {
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build3();
 
         ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()
                 .product(product)
                 .build();
+        productNotificationHistory.updateLastSentUserId(250L);
         productNotificationHistory.canceledByError();
+
+        return productNotificationHistory;
+    }
+
+    public static ProductNotificationHistory build_5() {
+        Product product = ProductBuilder.build1();
+        product.reStock();
+
+        ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()
+                .product(product)
+                .build();
+
+        return productNotificationHistory;
+    }
+
+    public static ProductNotificationHistory build_6() {
+        Product product = ProductBuilder.build2();
+        product.reStock();
+
+        ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()
+                .product(product)
+                .build();
 
         return productNotificationHistory;
     }

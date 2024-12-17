@@ -13,7 +13,7 @@ public class ProductNotificationHistoryUnitTest {
     @Test
     public void constructorWithProduct() {
         // given
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build1();
 
         // when
         ProductNotificationHistory productNotificationHistory = ProductNotificationHistory.builder()

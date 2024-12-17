@@ -11,7 +11,7 @@ public class ProductUnitTest {
     @Test
     void refillStock() {
         // given
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build1();
         Integer expectedReStockRound = product.getReStockRound() + 1;
 
         // when
@@ -25,7 +25,7 @@ public class ProductUnitTest {
     @Test
     void decreaseStock() {
         // given
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build1();
 
         // when
         product.decreaseStock();

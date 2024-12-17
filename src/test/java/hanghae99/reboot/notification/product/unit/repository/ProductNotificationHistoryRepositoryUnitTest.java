@@ -20,9 +20,9 @@ public class ProductNotificationHistoryRepositoryUnitTest extends RepositoryUnit
     @Test
     public void findTopByIdAndReStockNotificationStatusIsNotCompleted_존재_O() {
         // given
-        Long expectedProductNotificationHistoryId = 2L;
-        Long expectedProductId = 1L;
-        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build2();
+        Long expectedProductNotificationHistoryId = 3L;
+        Long expectedProductId = 2L;
+        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =
@@ -42,7 +42,7 @@ public class ProductNotificationHistoryRepositoryUnitTest extends RepositoryUnit
     @Test
     public void findTopByIdAndReStockNotificationStatusIsNotCompleted_존재_x() {
         // given
-        Long productNotificationHistoryId = 3L;
+        Long productNotificationHistoryId = 1L;
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =
@@ -55,9 +55,9 @@ public class ProductNotificationHistoryRepositoryUnitTest extends RepositoryUnit
     @Test
     public void findTopByProductIdAndReStockNotificationStatusIsNotCompleted_존재_O() {
         // given
-        Long expectedProductNotificationHistoryId = 2L;
-        Long expectedProductId = 1L;
-        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build2();
+        Long expectedProductNotificationHistoryId = 3L;
+        Long expectedProductId = 2L;
+        ProductNotificationHistory expectedProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =
@@ -77,7 +77,7 @@ public class ProductNotificationHistoryRepositoryUnitTest extends RepositoryUnit
     @Test
     public void findTopByProductIdAndReStockNotificationStatusIsNotCompleted_존재_X() {
         // given
-        Long productId = 2L;
+        Long productId = 1L;
 
         // when
         Optional<ProductNotificationHistory> optionalProductNotificationHistory =

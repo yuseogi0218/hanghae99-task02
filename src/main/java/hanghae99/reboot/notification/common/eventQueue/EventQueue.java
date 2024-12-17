@@ -5,18 +5,19 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class EventQueue<T> {
     private final ConcurrentLinkedQueue<T> queue = new ConcurrentLinkedQueue<>();
 
-    // 메시지 추가
+    // 이벤트 추가
     public void addEvent(T event) {
         queue.offer(event);
     }
 
+    // 가장 처음 이벤트 확인
     public T peekEvent() {
         return queue.peek();
     }
 
-    // 메시지 가져오기
-    public T getEvent() {
-        return queue.poll(); // 큐에서 메시지 가져오고 제거
+    // 가장 처음 이벤트 제거
+    public void removeEvent() {
+        queue.poll();
     }
 
     // 큐가 비었는지 확인
@@ -24,8 +25,4 @@ public class EventQueue<T> {
         return queue.isEmpty();
     }
 
-    // 큐 크기 확인
-    public int size() {
-        return queue.size();
-    }
 }

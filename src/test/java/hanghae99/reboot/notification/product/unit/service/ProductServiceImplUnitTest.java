@@ -32,7 +32,7 @@ public class ProductServiceImplUnitTest extends ServiceUnitTest {
     public void getProductById_성공() {
         // given
         Long productId = 1L;
-        Product expectedProduct = ProductBuilder.build();
+        Product expectedProduct = ProductBuilder.build1();
 
         // stub
         when(productRepository.findTopById(productId)).thenReturn(Optional.of(expectedProduct));
@@ -69,7 +69,7 @@ public class ProductServiceImplUnitTest extends ServiceUnitTest {
     public void reStockById() {
         // given
         Long productId = 1L;
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build1();
         Integer expectedReStockRound = product.getReStockRound() + 1;
 
         // stub

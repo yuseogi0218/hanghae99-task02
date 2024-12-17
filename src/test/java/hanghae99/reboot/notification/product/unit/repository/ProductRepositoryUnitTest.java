@@ -4,7 +4,6 @@ import hanghae99.reboot.notification.common.RepositoryUnitTest;
 import hanghae99.reboot.notification.product.domain.Product;
 import hanghae99.reboot.notification.product.domain.ProductBuilder;
 import hanghae99.reboot.notification.product.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class ProductRepositoryUnitTest extends RepositoryUnitTest {
     public void findTopById_존재_O() {
         // given
         Long expectedProductId = 1L;
-        Product expectedProduct = ProductBuilder.build_2reStock();
+        Product expectedProduct = ProductBuilder.build1();
 
         // when
         Optional<Product> optionalProduct = productRepository.findTopById(expectedProductId);

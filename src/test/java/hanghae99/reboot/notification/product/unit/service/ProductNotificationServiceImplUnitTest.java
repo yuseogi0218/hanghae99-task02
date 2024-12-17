@@ -3,7 +3,10 @@ package hanghae99.reboot.notification.product.unit.service;
 import hanghae99.reboot.notification.common.ServiceUnitTest;
 import hanghae99.reboot.notification.common.eventQueue.EventProducer;
 import hanghae99.reboot.notification.common.exception.CustomException;
-import hanghae99.reboot.notification.product.domain.*;
+import hanghae99.reboot.notification.product.domain.Product;
+import hanghae99.reboot.notification.product.domain.ProductBuilder;
+import hanghae99.reboot.notification.product.domain.ProductNotificationHistory;
+import hanghae99.reboot.notification.product.domain.ProductNotificationHistoryBuilder;
 import hanghae99.reboot.notification.product.domain.status.ReStockNotificationStatus;
 import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTO;
 import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTOBuilder;
@@ -50,8 +53,8 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
     @Test
     public void getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted_성공_존재_O() {
         // given
-        Long productNotificationHistoryId = 2L;
-        ProductNotificationHistory expecteProductNotificationHistory = ProductNotificationHistoryBuilder.build2();
+        Long productNotificationHistoryId = 3L;
+        ProductNotificationHistory expecteProductNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
 
         // stub
         when(productNotificationHistoryRepository.findTopByIdAndReStockNotificationStatusIsNotCompleted(productNotificationHistoryId))
@@ -97,7 +100,7 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
     public void createProductNotificationHistory_성공() {
         // given
         Long productId = 1L;
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build1();
 
         // stub
         when(productService.getProductById(productId)).thenReturn(product);
@@ -115,7 +118,7 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
     @Test
     public void publishReStockNotificationEvent_성공_존재_O() {
         // given
-        Long productId = 1L;
+        Long productId = 2L;
         ProductNotificationHistory productNotificationHistory = ProductNotificationHistoryBuilder.build_CANCELED_BY_SOLD_OUT();
         Assertions.assertThat(productNotificationHistory.getReStockNotificationStatus()).isEqualTo(ReStockNotificationStatus.CANCELED_BY_SOLD_OUT);
 
@@ -184,7 +187,7 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
     public void sendReStockNotification_성공() {
         // given
         SendReStockNotificationDTO dto = SendReStockNotificationDTOBuilder.build();
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build1();
 
         // stub
         when(productService.getProductById(dto.productId())).thenReturn(product);

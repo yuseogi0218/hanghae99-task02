@@ -14,7 +14,7 @@ public interface ProductUserNotificationRepository extends JpaRepository<Product
             "from ProductUserNotification pun " +
             "where pun.product.id = :productId " +
             "and (:lastSentUserId is null or pun.userId > :lastSentUserId) " +
-            "order by pun.updatedAt desc",
+            "order by pun.updatedAt asc",
             countQuery = "select COUNT(pun) " +
                     "from ProductUserNotification pun " +
                     "where pun.product.id = :productId " +

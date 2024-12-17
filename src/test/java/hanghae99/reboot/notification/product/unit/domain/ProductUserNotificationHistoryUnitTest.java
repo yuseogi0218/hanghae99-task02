@@ -11,7 +11,7 @@ public class ProductUserNotificationHistoryUnitTest {
     @Test
     public void constructor() {
         // given
-        Product product = ProductBuilder.build();
+        Product product = ProductBuilder.build1();
         Long userId = 1L;
         Integer restockRound = 1;
 
