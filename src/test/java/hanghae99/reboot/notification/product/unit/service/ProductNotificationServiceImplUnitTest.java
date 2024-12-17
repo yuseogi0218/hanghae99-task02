@@ -46,6 +46,21 @@ public class ProductNotificationServiceImplUnitTest extends ServiceUnitTest {
     private ProductService productService;
 
     /**
+     * 상품 재입고 알림 기록 저장 성공
+     */
+    @Test
+    public void saveProductNotificationHistory_성공() {
+        // given
+        ProductNotificationHistory productNotificationHistory = ProductNotificationHistoryBuilder.build2();
+
+        // when
+        productNotificationService.saveProductNotificationHistory(productNotificationHistory);
+
+        // then
+        verify(productNotificationHistoryRepository, times(1)).save(productNotificationHistory);
+    }
+
+    /**
      * 상품별 재입고 알림 전송 기록 조회 성공
      */
     @Test

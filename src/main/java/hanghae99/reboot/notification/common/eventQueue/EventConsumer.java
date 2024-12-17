@@ -81,7 +81,7 @@ public class EventConsumer {
                     if (e.getErrorCode().equals(ProductErrorCode.OUT_OF_STOCK.getCode())) {
                         productNotificationHistory.canceledBySoldOut();
                     } else {
-                        // 써드 파티 연동에서의 예외
+                        // 써드 파티 연동에서의 예외, 알림 보내는 것을 중단한다.
                         productNotificationHistory.canceledByError();
                     }
                     break;
