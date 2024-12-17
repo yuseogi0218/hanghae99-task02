@@ -19,6 +19,14 @@ public class ProductBuilder {
         return product;
     }
 
+    public static Product build_OUT_OF_STOCK() {
+        Product product = Product.builder().build();
+
+        product.decreaseStock();
+
+        return product;
+    }
+
     public static void assertProduct(Product actualProduct, Product expectedProduct) {
         Assertions.assertThat(actualProduct.getReStockRound()).isEqualTo(expectedProduct.getReStockRound());
         Assertions.assertThat(actualProduct.getStockStatus()).isEqualTo(expectedProduct.getStockStatus());

@@ -72,8 +72,11 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
         );
     }
 
-    // productId 에 해당하는 사용자 중에서, lastSentUserId 이후 부터, size 명 만큼 보낼 수 있음
-    // Page -> 다음 페이지가 있는지 확인하기 위함
+    /**
+     * 상품별 재입고 알림 대상 사용자 조회
+     * - productId 에 해당하는 사용자 중에서, lastSentUserId 이후 부터, size 명 만큼 보낼 수 있음
+     * - Page -> 다음 페이지가 있는지 확인하기 위함
+     */
     @Override
     public Page<Long> getUserIdOfProductUserNotificationByProductId(Long productId, Long lastSentUserId, Integer size) {
         return productUserNotificationRepository.findUserIdsByProductIdAfterLastSentUserId(productId, lastSentUserId, PageRequest.of(0, size));
@@ -92,12 +95,8 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
         }
         
         //TODO: 2024-12-16 알림 전송 후, Repository 에서 저장하는 것이 아닌, 반환하도록 한다. - 이후, 반환받은 곳에서 Bulk Insert 를 수행한다. 
-        
-        ProductUserNotificationHistory productUserNotificationHistory = ProductUserNotificationHistory.builder()
-                .product(product)
-                .userId(dto.userId())
-                .reStockRound(dto.reStockRound())
-                .build();
+
+        ProductUserNotificationHistory productUserNotificationHistory = dto.toEntity(product);
 
         productUserNotificationHistoryRepository.save(productUserNotificationHistory);
     }
