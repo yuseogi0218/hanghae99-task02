@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface ProductNotificationService {
 
+    void saveProductNotificationHistory(ProductNotificationHistory productNotificationHistory);
+
     Optional<ProductNotificationHistory> getProductNotificationHistoryByIdAndReStockNotificationStatusIsNotCompleted(Long productNotificationHistoryId);
 
     void createProductNotificationHistory(Long productId);

@@ -32,6 +32,12 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
 
     private final ProductService productService;
 
+    @Transactional
+    @Override
+    public void saveProductNotificationHistory(ProductNotificationHistory productNotificationHistory) {
+        productNotificationHistoryRepository.save(productNotificationHistory);
+    }
+
     /**
      * 재입고 알림 전송 기록 조회
      */
@@ -103,6 +109,7 @@ public class ProductNotificationServiceImpl implements ProductNotificationServic
     /**
      * 사용자별 재입고 알림 전송 기록 저장
      */
+    @Transactional
     @Override
     public void saveAllProductUserNotificationHistories(List<ProductUserNotificationHistory> productUserNotificationHistories) {
         productUserNotificationHistoryRepository.saveAll(productUserNotificationHistories);

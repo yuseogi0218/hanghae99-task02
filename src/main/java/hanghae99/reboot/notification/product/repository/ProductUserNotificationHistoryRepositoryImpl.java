@@ -16,7 +16,6 @@ public class ProductUserNotificationHistoryRepositoryImpl implements ProductUser
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Transactional
     @Override
     public void saveAll(List<ProductUserNotificationHistory> productUserNotificationHistories) {
         String sql = "INSERT INTO productUserNotificationHistory (productId, userId, reStockRound, sentAt)" +

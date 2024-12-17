@@ -8,6 +8,7 @@ import hanghae99.reboot.notification.product.dto.SendReStockNotificationDTO;
 import hanghae99.reboot.notification.product.exception.ProductErrorCode;
 import hanghae99.reboot.notification.product.service.ProductNotificationService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.util.CustomObjectInputStream;
 import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,6 @@ public class EventConsumer {
 
     private final ProductNotificationService productNotificationService;
 
-    @Transactional
     @Scheduled(fixedDelay = 1000) // 1초마다 실행
     public void consumeEvent() {
         // 현재 이벤트에서 전송한 메시지 개수
@@ -66,7 +66,6 @@ public class EventConsumer {
             Integer reStockRound = productNotificationHistory.getReStockRound();
             List<Long> userIds = productUserNotificationUserIdsPage.getContent();
             for (Long userId : userIds) {
-                sentMessageCount++;
                 try {
                     SendReStockNotificationDTO sendReStockNotificationDTO = SendReStockNotificationDTO.builder()
                             .productId(productId)
@@ -78,6 +77,7 @@ public class EventConsumer {
                     ProductUserNotificationHistory productUserNotificationHistory =
                             productNotificationService.sendReStockNotification(sendReStockNotificationDTO);
                     productUserNotificationHistories.add(productUserNotificationHistory);
+                    sentMessageCount++;
                 } catch (CustomException e) {
                     // 재입고 알림을 보내던 중 재고가 모두 소진된다면, 알림 보내는 것을 중단한다.
                     if (e.getErrorCode().equals(ProductErrorCode.OUT_OF_STOCK.getCode())) {
@@ -102,6 +102,7 @@ public class EventConsumer {
             } else if (productNotificationHistory.statusIsCanceled()) {
                 eventQueue.removeEvent();
             }
+            productNotificationService.saveProductNotificationHistory(productNotificationHistory);
         }
         // 알림 전송 기록 저장
         productNotificationService.saveAllProductUserNotificationHistories(productUserNotificationHistories);
