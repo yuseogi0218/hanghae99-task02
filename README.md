@@ -204,8 +204,8 @@ POST `http://localhost:8080/admin/products/{productId}/notifications/re-stock`
 ### 재입고 알림 전송 기능 비즈니스 로직 순서
 
 1. productId 에 해당하는 상품의 재입고 회차를 1 증가시킨 후, 재고 있음 상태로 변경한다.
-2. productId 에 해당하는 상품을 조회 후, 상품별 재입고 알림 히스토리를 생성합니다.
-   - 이때, 상품별 재입고 알림 히스토리의 값은 아래과 같이 초기화 한다.
+2. productId 에 해당하는 상품을 조회 후, 상품별 재입고 알림 히스토리를 생성한다.
+   - 이때, 상품별 재입고 알림 히스토리의 값은 아래와 같이 초기화 한다.
      - reStockNotificationStatus (재입고 알림 전송 상태) : IN_PROGRESS (발송 중)
      - lastSentUserId (마지막 발송 유저 Id) : null
 3. productId 에 해당하는 상품별 재입고 알림 히스토리를 조회 후, 알림을 처리하는 Event 를 발행한다.
